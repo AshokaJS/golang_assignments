@@ -26,21 +26,29 @@ func main() {
 	var digit int
 	digit = 0
 
-	var i, j int
-	for i = 0; i < l-1; i++ {
-		j = i + 1
+	var i,j int
 
-		if m[roman[i]] < m[roman[j]] {
-			digit += (m[roman[j]] - m[roman[i]])
-			i++
-		} else {
-			digit += m[roman[i]]
-			if j+1 >= l {
-				digit += m[roman[j]]
+	if l==1 {
+		digit=m[roman[i]]
+	}else{
+	
+	
+		for i = 0; i < l-1; i++ {
+			j = i + 1
+
+			if m[roman[i]] < m[roman[j]] {
+				digit += (m[roman[j]] - m[roman[i]])
+				i++
+			} else {
+				digit += m[roman[i]]
+				if j+1 >= l {
+					digit += m[roman[j]]
+				}
 			}
-		}
 
+		}
 	}
+
 
 	fmt.Println(digit)
 
