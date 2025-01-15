@@ -4,16 +4,16 @@ package main
 import "fmt"
 
 func main() {
-	var p int
-	var r int
-	var t int
+	var principle uint
+	var rate uint
+	var time uint
 
-	fmt.Scanln(&p)
-	fmt.Scanln(&r)
-	fmt.Scanln(&t)
-	
-	var simple_interest int
-	simple_interest = (p * r * t) / 100
+	fmt.Scanln(&principle)
+	fmt.Scanln(&rate)
+	fmt.Scanln(&time)
 
-	fmt.Println(simple_interest)
+	var simple_interest uint
+	simple_interest = (principle * rate * time) / 100
+
+	fmt.Printf("simple interest of principle amount %v is : %v \n", principle, simple_interest)
 }
