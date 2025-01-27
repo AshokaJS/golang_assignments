@@ -9,52 +9,60 @@ var wg sync.WaitGroup
 
 func main() {
 	var str string
+	fmt.Println("enter the conversation : ")
 	fmt.Scanln(&str)
 
 	start := 0
 
 	for j, i := range str {
-		if i == '#' {
-			// fmt.Println("bob", j)
-			substr := str[start:j]
-			start = j + 1
-			ch := make(chan string)
-			wg.Add(2)
-			go func() {
-				defer wg.Done()
-				// wg.Add(1)
-				ch <- substr
-			}()
-			go func() {
-				defer wg.Done()
-				// wg.Add(1)
-				fmt.Printf("bob : %v,", <-ch)
-			}()
+		if i == '^' {
+			break
+		} else {
 
-			wg.Wait()
-		}
-		if i == '$' {
-			// fmt.Println("alice", j)
+			if i == '#' {
+				// fmt.Println("bob", j)
+				substr := str[start:j]
+				start = j + 1
+				ch := make(chan string)
+				wg.Add(2)
+				go func() {
+					defer wg.Done()
+					// wg.Add(1)
+					ch <- substr
+				}()
+				go func() {
+					defer wg.Done()
+					// wg.Add(1)
+					fmt.Printf("\n bob : %v,", <-ch)
+				}()
 
-			substr := str[start:j]
-			start = j + 1
-			ch := make(chan string)
-			wg.Add(2)
-			go func() {
-				defer wg.Done()
+				wg.Wait()
+			}
+			if i == '$' {
+				// fmt.Println("alice", j)
 
-				ch <- substr
-			}()
+				substr := str[start:j]
+				start = j + 1
+				ch := make(chan string)
+				wg.Add(2)
+				go func() {
+					defer wg.Done()
 
-			go func() {
-				defer wg.Done()
-				// wg.Add(1)
-				fmt.Printf("alice : %v,", <-ch)
-			}()
+					ch <- substr
+				}()
 
-			wg.Wait()
+				go func() {
+					defer wg.Done()
+					// wg.Add(1)
+					fmt.Printf("\n alice : %v,", <-ch)
+				}()
+
+				wg.Wait()
+			}
 		}
 	}
-
-	fmt.Println("ashoka")
+	fmt.Println()
+	// fmt.Println("ashoka")
 }
+
+// "helloBob$helloalice#howareyou?#Iamgood.howareyou?$^helloBob$helloalice#howareyou?#Iamgood.howareyou?$^"
